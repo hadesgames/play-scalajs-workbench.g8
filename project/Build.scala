@@ -1,13 +1,14 @@
 import sbt._
 import Keys._
+import play.Keys._
 
 object ApplicationBuild extends Build {
 
   override def rootProject = Some(scalaJVM)
 
-  lazy val scalaJVM = Project(
-    id = "scalaJVM",
-    base = file("scalajvm")
+  lazy val scalaJVM = play.Project(
+    name = "scalaJVM",
+    path = file("scalajvm")
   ).settings(scalaJVMSettings: _*)
    .dependsOn(scalaShared)
 
@@ -22,9 +23,11 @@ object ApplicationBuild extends Build {
     base = file("shared")
   ).settings(scalaSharedSettings: _*)
 
-  lazy val scalaJVMSettings = Seq(
+  lazy val scalaJVMSettings = play.Project.playScalaSettings ++ Seq(
     libraryDependencies ++= Seq(
-
+        jdbc,
+        anorm,
+        cache
     )
   )
 
