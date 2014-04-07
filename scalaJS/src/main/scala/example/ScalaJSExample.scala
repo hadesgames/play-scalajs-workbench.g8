@@ -5,12 +5,13 @@ import js.Dynamic.{ global => g }
 import js.annotation.JSExport
 import scala.scalajs.js.annotation.JSExport
 import scala.scalajs.js.annotation.JSExport
+import shared.SharedMessages
 
 @JSExport
 object ScalaJSExample {
   @JSExport
   def main(): Unit = {
-    g.document.getElementById("scalajsShoutOut").textContent = "Hello world"
+    g.document.getElementById("scala-demo").textContent = "Helloworld !" + SharedMessages.itWorks
   }
 
   /** Computes the square of an integer.
