@@ -43,6 +43,7 @@ object ApplicationBuild extends Build with UniversalKeys {
     )
   ) ++ Seq(
     crossTarget in (scalaJS, Compile) := scalaJsOutputDir.value
+    //crossTarget in (scalaShared, Compile) := scalaJsOutputDir.value
     // ask scalajs project to put its outputs in scalajsOutputDir
     /*
     Seq(packageExternalDepsJS, packageInternalDepsJS, packageExportedProductsJS, packageJS, preoptimizeJS, optimizeJS) map {
@@ -82,7 +83,7 @@ object ApplicationBuild extends Build with UniversalKeys {
         updateBrowsers <<= updateBrowsers.triggeredBy(ScalaJSKeys.packageJS in Compile)
       )
 
-  lazy val scalaSharedSettings = Seq(
+  lazy val scalaSharedSettings = scalaJSSettings ++ Seq(
     libraryDependencies ++= Seq(
 
     )
