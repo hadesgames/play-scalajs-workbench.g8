@@ -31,25 +31,17 @@ object ApplicationBuild extends Build with UniversalKeys {
   ).settings(scalaSharedSettings: _*)
 
   lazy val scalaJVMSettings = play.Project.playScalaSettings ++ Seq(
+    // Setup the scala-js project
     scalaJsOutputDir :=  (crossTarget in Compile).value / "classes" / "public" / "javascripts",
     compile in Compile <<= (compile in Compile) dependsOn (packageJS in (scalaJS, Compile)),
     dist <<= dist dependsOn (optimizeJS in (scalaJS, Compile)),
-
+    crossTarget in (scalaJS, Compile) := scalaJsOutputDir.value,
 
     libraryDependencies ++= Seq(
         jdbc,
         anorm,
         cache
     )
-  ) ++ Seq(
-    crossTarget in (scalaJS, Compile) := scalaJsOutputDir.value
-    //crossTarget in (scalaShared, Compile) := scalaJsOutputDir.value
-    // ask scalajs project to put its outputs in scalajsOutputDir
-    /*
-    Seq(packageExternalDepsJS, packageInternalDepsJS, packageExportedProductsJS, packageJS, preoptimizeJS, optimizeJS) map {
-      packageJSKey =>
-        crossTarget in (scalaJS, Compile, packageJSKey) := scalaJsOutputDir.value
-    }*/
   )
 
   lazy val scalajsSettings = scalaJSSettings ++
@@ -59,8 +51,9 @@ object ApplicationBuild extends Build with UniversalKeys {
         )
       ) ++ workbenchSettings ++
       Seq(
-
+        // Workbench configurations
         bootSnippet := "ScalaJS.modules.example_ScalaJSExample().main();",
+        // Rewrite the urls for the scala workbench
         updatedJS <<= updatedJS map { paths =>
           val pattern = "classes/public/"
           paths map { path =>
@@ -70,17 +63,6 @@ object ApplicationBuild extends Build with UniversalKeys {
               path
           }
         },
-        /*
-        serverPrefix := Some("http://localhost:9000/assets"),
-        javascriptUrlGenerator := { path =>
-          val prefix = "classes/public/"
-          val isInPublic = path.contains(prefix)
-          if (isInPublic)
-            path.substring(path.indexOf(prefix) + prefix.length)
-          else
-            path
-        },*/
-        //packageJS <<= (packageJS in Compile) triggeredBy (watchSources),
         updateBrowsers <<= updateBrowsers.triggeredBy(ScalaJSKeys.packageJS in Compile)
       )
 
