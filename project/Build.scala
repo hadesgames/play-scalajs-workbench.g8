@@ -59,6 +59,7 @@ object ApplicationBuild extends Build with UniversalKeys {
         )
       ) ++ workbenchSettings ++
       Seq(
+
         bootSnippet := "ScalaJS.modules.example_ScalaJSExample().main();",
         updatedJS <<= updatedJS map { paths =>
           val pattern = "classes/public/"
@@ -79,7 +80,7 @@ object ApplicationBuild extends Build with UniversalKeys {
           else
             path
         },*/
-        packageJS <<= (packageJS in Compile) triggeredBy (watchSources),
+        //packageJS <<= (packageJS in Compile) triggeredBy (watchSources),
         updateBrowsers <<= updateBrowsers.triggeredBy(ScalaJSKeys.packageJS in Compile)
       )
 
