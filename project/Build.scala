@@ -54,7 +54,6 @@ object ApplicationBuild extends Build with UniversalKeys {
   lazy val baseJsSettings = ScalaJSPlugin.scalaJSSettings ++
       workbenchSettings ++
       Seq(
-        relativeSourceMaps := true,
         // Workbench configurations
         bootSnippet := "ScalaJS.modules.example_ScalaJSExample().main();",
         // Rewrite the urls for the scala workbench

@@ -1,3 +1,5 @@
+package example
+
 import example.shared.SharedMessages
 import scala.scalajs.js
 import js.Dynamic.{ global => g }
