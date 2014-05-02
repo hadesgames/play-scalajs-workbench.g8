@@ -55,7 +55,7 @@ object ApplicationBuild extends Build with UniversalKeys {
       workbenchSettings ++
       Seq(
         // Workbench configurations
-        bootSnippet := "ScalaJS.modules.example_ScalaJSExample().main();",
+        bootSnippet := "ScalaJSExample().main();",
         // Rewrite the urls for the scala workbench
         updatedJS <<= updatedJS map { paths =>
           val pattern = "classes/public/"

@@ -1,6 +1,6 @@
-package example
+package $package$
 
-import example.shared.SharedMessages
+import $package$.shared.SharedMessages
 import scala.scalajs.js
 import js.Dynamic.{ global => g }
 import scala.scalajs.js.annotation.JSExport
